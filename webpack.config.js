@@ -2,7 +2,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
-const webpack = require('webpack');
+
 module.exports = {
   entry: "./index.js",
   output: {
@@ -17,11 +17,7 @@ module.exports = {
     port: 8080,
     compress: true
   },
-  optimization: {
-    splitChunks: {
-        chunks: 'all'
-    }
-  },
+ 
   plugins: [
     new CleanWebpackPlugin(["public"]),
     new HtmlWebpackPlugin({
