@@ -2,10 +2,11 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require('webpack');
 module.exports = {
   entry: "./index.js",
   output: {
-    filename: "bundle.js",
+    filename: "[name].bundle.js",
     path: path.resolve(__dirname, "public")
   },
   context: path.resolve(__dirname, "src"),
@@ -16,12 +17,17 @@ module.exports = {
     port: 8080,
     compress: true
   },
+  optimization: {
+    splitChunks: {
+        chunks: 'all'
+    }
+  },
   plugins: [
     new CleanWebpackPlugin(["public"]),
     new HtmlWebpackPlugin({
       template: "index.html"
     }),
-    new ExtractTextPlugin("style.css")
+    new ExtractTextPlugin("style.css"),
   ],
   module: {
     rules: [
