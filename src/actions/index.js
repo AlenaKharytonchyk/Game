@@ -1,6 +1,6 @@
 import * as appActions from "./appAction";
+import * as loginActions from "./userLoginActions"
+const actions = { appActions, loginActions };
 
-const actions = { appActions };
-
-export { appActions };
+export { appActions, loginActions };
 export default actions;
