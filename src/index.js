@@ -2,12 +2,16 @@ import '@babel/polyfill';
 import './style.less';
 import React from "react";
 import ReactDOM from "react-dom";
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import App from './components/App.jsx';
+import App from './containers/App';
+import { createStore } from 'redux';
+import gameReducers from './reducers';
+import { Provider} from 'react-redux';
+
+const store = createStore(gameReducers)
 
 ReactDOM.render(
-    <MuiThemeProvider>
-        <App name="My first game"/>
-    </MuiThemeProvider>,
+       <Provider store={store}> 
+        <App />
+      </Provider>,
   document.getElementById('app')
 );
