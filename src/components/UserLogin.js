@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
+import { withStyles } from '@material-ui/core/styles';
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -8,6 +9,24 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 
+const styles = theme => ({
+  startGame: {
+    margin: theme.spacing.unit,
+    color: 'white',
+    background: 'rgba(206, 116, 26, 0.7)',
+  },
+  cancelGame: {
+    margin: theme.spacing.unit,
+    color: 'white',
+    background: 'rgba(219, 109, 197, 0.7)',
+  },
+  textField: {
+    borderColor: '#ce741a',
+    color: '#ce741a',
+  }
+
+
+});
 class UserLogin extends Component {
   constructor(props) {
     super(props);
@@ -18,29 +37,30 @@ class UserLogin extends Component {
     this.setState ({userName})
   }
   render() {
-    const { showUserDialog, saveNewUser, closeUserDialog} = this.props;
+    const { showUserDialog, saveNewUser, closeUserDialog, classes} = this.props;
     const { userName} = this.state;
     return (
       <div>
         <Dialog open={showUserDialog} onClose={closeUserDialog} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
+          <DialogTitle id="form-dialog-title">Ready Player One</DialogTitle>
           <DialogContent>
             <DialogContentText>To join this game, enter your name</DialogContentText>
             <TextField
               autoFocus
+              className={classes.textField}
               margin="dense"
               id="name"
               label="User name"
               type="text"
-              onChange={this.onUserNameChange}
+              onChange={(event)=>this.onUserNameChange(event)}
               fullWidth
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={closeUserDialog} color="secondary" variant="contained">
+            <Button onClick={closeUserDialog} className={classes.cancelGame} variant="contained">
               Cancel
             </Button>
-            <Button onClick={()=>saveNewUser(state)} color="primary" variant="contained">
+            <Button onClick={()=>saveNewUser(userName)} className={classes.startGame} variant="contained">
               Start Game!
             </Button>
           </DialogActions>
@@ -60,4 +80,4 @@ UserLogin.defaultProps = {
   showUserDialog: false,
 };
 
-export default UserLogin;
+export default withStyles(styles)(UserLogin);

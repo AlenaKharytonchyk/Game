@@ -11,13 +11,16 @@ import MenuIcon from '@material-ui/icons/Menu';
 const styles = {
   root: {
     flexGrow: 1,
+    border: 0,
+    borderRadius: 3,
+    boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
   },
+  appbar: {
+    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    color: 'white',
+},
   grow: {
     flexGrow: 1,
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20,
   },
 };
 
@@ -26,7 +29,7 @@ function Header(props) {
   const inProgress = typeof(userName)!='undefined';
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" color="inherit" className={classes.appbar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow}>
             Game Name
