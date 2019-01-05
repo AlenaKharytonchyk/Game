@@ -9,22 +9,23 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     color: 'white',
   },
-
+  icon: {
+    transform: 'rotate(175deg)'
+  }
 });
 
 function AttackButton(props) {
-  const { classes } = props;
+  const { classes, onClick } = props;
   return (
-
-      <Fab aria-label="Attack" color='secondary' className={classes.fab}>
-        <Icon>colorize</Icon>
+      <Fab aria-label="Attack" color='secondary' className={classes.fab} onClick={onClick}>
+        <Icon className={classes.icon}>colorize</Icon>
       </Fab>
-
   );
 }
 
 AttackButton.propTypes = {
   classes: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(AttackButton);

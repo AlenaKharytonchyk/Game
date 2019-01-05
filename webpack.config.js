@@ -10,6 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, "public")
   },
   context: path.resolve(__dirname, "src"),
+  devtool: 'eval-source-map',
   devServer: {
     contentBase: path.resolve(__dirname, "public/assets"),
     stats: "errors-only",

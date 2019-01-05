@@ -14,10 +14,10 @@ const styles = theme => ({
 });
 
 function HealButton(props) {
-  const { classes } = props;
+  const { classes, onClick } = props;
   return (
 
-      <Fab aria-label="Heal" className={classes.fab}>
+      <Fab aria-label="Heal" className={classes.fab} onClick={onClick}>
         <Icon>healing</Icon>
       </Fab>
 
@@ -26,6 +26,7 @@ function HealButton(props) {
 
 HealButton.propTypes = {
   classes: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(HealButton);
