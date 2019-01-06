@@ -31,7 +31,12 @@ const styles = theme => ({
   },
   cardContainer: {
     display: 'flex',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  versus: {
+    fontSize: '3em',
+    color: '#f50057',
   }
 });
 
@@ -68,6 +73,9 @@ class GameScreen extends React.Component {
         <Paper className={classes.root} elevation={1}>
           <Typography variant="h5" component="h3" className={classes.cardContainer}>
             <UserCard/>
+            <Typography component="p" className={classes.versus}>
+              VS
+            </Typography>
             <MonsterCard/>
           </Typography>
           <div className={classes.actionContainer}>

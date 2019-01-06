@@ -7,7 +7,7 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import { connect } from "react-redux";
 import { gameActions } from "../actions";
-import { LinearProgress } from "@material-ui/core";
+import LinearProgress from "@material-ui/core/LinearProgress";
 import config from "../gameConfig/config";
 import ladyIdle from "../assets/CurieIdle.gif";
 import ladyAttack from "../assets/CurieAttack.gif";
@@ -22,7 +22,9 @@ const styles = theme => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3
   },
   cardTitle: {
     minHeight: "3.6em",

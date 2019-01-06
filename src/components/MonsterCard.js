@@ -19,6 +19,8 @@ const styles = theme => ({
     flexDirection: 'column',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginLeft: theme.spacing.unit * 3,
+    marginRight: theme.spacing.unit * 3
   },
   cardTitle: {
     minHeight: "3.6em",

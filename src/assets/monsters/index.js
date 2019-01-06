@@ -1,11 +1,11 @@
-import m1 from "./bulbasaur.gif";
-import m2 from "./charmeleon.gif";
-import m3 from "./psyduck.gif";
-import m4 from "./squirtle.gif";
-import m4Attack from "./squirtle-3.gif";
-import m3Attack from "./psyduck-3.gif";
-import m2Attack from "./charmeleon-3.gif";
-import m1Attack from "./bulbasaur-3.gif";
+import m1 from "./bulbasaurIdle.gif";
+import m1Attack from "./bulbasaurAttack.gif";
+import m2 from "./charmeleonIdle.gif";
+import m3 from "./psyduckIdle.gif";
+import m4 from "./squirtleIdle.gif";
+import m4Attack from "./squirtleAttack.gif";
+import m3Attack from "./psyduckAttack.gif";
+import m2Attack from "./charmeleonAttack.gif";
 
 const monsters = [
   {

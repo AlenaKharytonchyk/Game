@@ -2,12 +2,11 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
 import mathQuestions from "../questions/math/mathQuestions";
 import spellingQuestions from "../questions/spelling/spellingQuestions";
 import translateQuestions from "../questions/translate/translateQuestions";
 import TextField from "@material-ui/core/TextField";
-import { Typography } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 
 export const QUESTION_TYPES = {
