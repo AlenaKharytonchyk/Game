@@ -7,7 +7,8 @@ import Tab from '@material-ui/core/Tab';
 import TabContainer from './TabContainer';
 import '../styles/landingComponent.less';
 import PlayButtonContainer from '../containers/PlayButton';
-import { Divider } from '@material-ui/core';
+import Divider  from '@material-ui/core/Divider';
+import ScoreBoard from './ScoreBoard';
 
 const styles = {
   root: {
@@ -41,15 +42,15 @@ class Landing extends React.Component {
           textColor="secondary"
           centered
         >
-          <Tab label="Let's start!" />
-          <Tab label="Screenshots" />
-          <Tab label="Hall of FAME" />
-          <Tab label="About me" />
+          <Tab label="Ну давай уже начнём уже!" />
+          <Tab label="Что тебя ждёт" />
+          <Tab label="Стена Славы" />
+          <Tab label="Я это сделала!" />
         </Tabs>
         <Divider variant="middle" />
         {value === 0 && <TabContainer><PlayButtonContainer /></TabContainer>}
         {value === 1 && <TabContainer>Item Two</TabContainer>}
-        {value === 2 && <TabContainer>Item Three</TabContainer>}
+        {value === 2 && <TabContainer><ScoreBoard/></TabContainer>}
         {value === 3 && <TabContainer>Item Four</TabContainer>}
       </Paper>
 

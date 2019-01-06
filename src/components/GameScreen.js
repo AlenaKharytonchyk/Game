@@ -7,6 +7,11 @@ import HealButton from "./HealButton";
 import AttackButton from "./AttackButton";
 import ExitButton from "./ExitButton";
 import MagicDialog from "./MagicDialog";
+import config from '../gameConfig/config';
+import { gameActions } from "../actions";
+import UserCard from "./UserCard";
+import {connect} from 'react-redux';
+import MonsterCard from "./MonsterCard";
 
 export const USER_ACTIONS = {
   ATTACK: 'ATTACK',
@@ -22,6 +27,10 @@ const styles = theme => ({
   actionContainer: {
     display: "flex",
     justifyContent: "center"
+  },
+  cardContainer: {
+    display: 'flex',
+    justifyContent: 'space-around',
   }
 });
 
@@ -39,39 +48,91 @@ class GameScreen extends React.Component {
   }
 
   handleCloseDialog(isCorrect, dialogType) {
-    this.setState({displayMagicDialog: false})
-
+    this.setState({displayMagicDialog: false});
+    this.makeAMove(isCorrect, dialogType);
   }
   makeAMove(isCorrect, dialogType){
-    const {userHeal, monsterAttack, userAttack, monsterHeal, monsterAppear, gameEnd} =this.props;
+    const {userHeal, userAttack} =this.props;
+
+    switch (dialogType) {
+      case USER_ACTIONS.ATTACK:
+        const damage = isCorrect? config.gameDefaults.userAttack: 0;
+        userAttack(damage);
+        break;
+      case USER_ACTIONS.HEAL:
+        const healthIncrease = isCorrect? config.gameDefaults.userHeal: 0;
+        userHeal(healthIncrease);
+        break;
+      default:
+        break;
+    }
+  }
+  componentDidMount(){
+    const {startGame} = this.props;
+    startGame(config.gameDefaults.userHealth, config.gameDefaults.monsterHealth)
 
   }
   render() {
-    const { classes } = this.props;
+    const { classes, userName, score, gameEnd } = this.props;
     const { displayMagicDialog, dialogType } = this.state;
     return (
       <div>
         <Paper className={classes.root} elevation={1}>
-          <Typography variant="h5" component="h3">
-            This is a sheet of paper.
-          </Typography>
-          <Typography component="p">
-            Paper can be used to build surface or other elements for your application.
+          <Typography variant="h5" component="h3" className={classes.cardContainer}>
+            <UserCard/>
+            <MonsterCard/>
           </Typography>
           <div className={classes.actionContainer}>
             <AttackButton onClick={()=> this.handleOpenDialog(USER_ACTIONS.ATTACK)}/>
             <HealButton onClick={()=> this.handleOpenDialog(USER_ACTIONS.HEAL)}/>
-            <ExitButton />
+            <ExitButton onClick={()=>gameEnd(userName, score)}/>
           </div>
         </Paper>
-        <MagicDialog open = {displayMagicDialog} handleClose={() => this.handleCloseDialog()} dialogType={dialogType}/>
+        <MagicDialog open = {displayMagicDialog} handleClose={(isCorrect,dialogType) => this.handleCloseDialog(isCorrect,dialogType)} dialogType={dialogType}/>
       </div>
     );
   }
 }
 
-GameScreen.propTypes = {
-  classes: PropTypes.object.isRequired
+const mapStateToProps = (state) => {
+  const userName =
+    state.userLoginReducer.userName;
+  const score = state.gameReducer.score;
+  return {
+    userName,
+    score
+  };
+
 };
 
-export default withStyles(styles)(GameScreen);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    userAttack: (e) => {
+
+      dispatch(gameActions.userAttack(e));
+    },
+    userHeal: (e) => {
+      dispatch(gameActions.userHeal(e));
+    },
+    startGame: (userHealth, monsterHealth) => {
+      dispatch(gameActions.gameStart(userHealth, monsterHealth));
+    },
+    gameEnd: (userName, score) => {
+      dispatch(gameActions.gameEnd(userName, score));
+    }
+  };
+};
+
+const GameScreenContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GameScreen);
+
+GameScreen.propTypes = {
+  classes: PropTypes.object.isRequired,
+  userAttack: PropTypes.func.isRequired,
+  userHeal: PropTypes.func.isRequired,
+  startGame: PropTypes.func.isRequired,
+};
+
+export default withStyles(styles)(GameScreenContainer);

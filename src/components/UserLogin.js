@@ -13,12 +13,12 @@ const styles = theme => ({
   startGame: {
     margin: theme.spacing.unit,
     color: 'white',
-    background: 'rgba(206, 116, 26, 0.7)',
+    background: '#f44336',
   },
   cancelGame: {
     margin: theme.spacing.unit,
     color: 'white',
-    background: 'rgba(219, 109, 197, 0.7)',
+    background: '#ef5350',
   },
   textField: {
     borderColor: '#ce741a',
@@ -42,26 +42,27 @@ class UserLogin extends Component {
     return (
       <div>
         <Dialog open={showUserDialog} onClose={closeUserDialog} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Ready Player One</DialogTitle>
+          <DialogTitle id="form-dialog-title">Первому игроку приготовиться</DialogTitle>
           <DialogContent>
-            <DialogContentText>To join this game, enter your name</DialogContentText>
+            <DialogContentText>Чтобы начать игру, введите имя</DialogContentText>
             <TextField
               autoFocus
               className={classes.textField}
               margin="dense"
               id="name"
-              label="User name"
+              label="Позвольте представиться:"
               type="text"
+              error
               onChange={(event)=>this.onUserNameChange(event)}
               fullWidth
             />
           </DialogContent>
           <DialogActions>
             <Button onClick={closeUserDialog} className={classes.cancelGame} variant="contained">
-              Cancel
+              Ой, я передумал(
             </Button>
             <Button onClick={()=>saveNewUser(userName)} className={classes.startGame} variant="contained">
-              Start Game!
+              Ну давайте начнём!
             </Button>
           </DialogActions>
         </Dialog>

@@ -4,11 +4,18 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import QuestionTypeSelection from "./QuestionTypeSelection";
 import Question from "./Questions";
+import { USER_ACTIONS } from "./GameScreen";
+import { withStyles } from '@material-ui/core/styles';
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
-
+const styles = theme => ({
+  dialogTitle: {
+    textAlign: 'center',
+    fontWeight: 700,
+  },
+});
 class MagicDialog extends React.Component {
   constructor(props) {
     super(props);
@@ -27,9 +34,20 @@ class MagicDialog extends React.Component {
     this.onClose(isCorrect, dialogType);
   }
   render() {
-    const { open, handleClose, dialogType } = this.props;
+    const { open, handleClose, dialogType, classes } = this.props;
     const { questionType } = this.state;
+    let title;
     let content;
+    switch (dialogType) {
+      case USER_ACTIONS.ATTACK:
+        title="Выберите атакующее заклинание"
+        break;
+        case USER_ACTIONS.HEAL:
+        title="Выберите заклинание для лечения"
+        break;
+      default: title="Вот это поворот!"
+        break;
+    }
     if (questionType === "") {
       content = (
         <QuestionTypeSelection
@@ -54,10 +72,10 @@ class MagicDialog extends React.Component {
         aria-labelledby="alert-dialog-slide-title"
         aria-describedby="alert-dialog-slide-description"
       >
-        <DialogTitle id="alert-dialog-slide-title">{`Use ${dialogType} magic`}</DialogTitle>
+        <DialogTitle id="alert-dialog-slide-title" className={classes.dialogTitle}>{title}</DialogTitle>
         {content}
       </Dialog>
     );
   }
 }
-export default MagicDialog;
+export default withStyles(styles)(MagicDialog);

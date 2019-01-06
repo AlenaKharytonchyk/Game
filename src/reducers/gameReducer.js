@@ -3,7 +3,8 @@ import { gameActions } from "../actions";
 const initialState = {
   userHealth: 0,
   monsterHealth: 0,
-  totalScore: 0
+  totalScore: 0,
+  round: 0,
 };
 function gameReducer(state = initialState, action) {
   switch (action.type) {
@@ -25,11 +26,13 @@ function gameReducer(state = initialState, action) {
       });
     case gameActions.USER_ATTACK:
       return Object.assign({}, state, {
-        monsterHealth: state.monsterHealth - action.value
+        monsterHealth: state.monsterHealth - action.value,
+        round: state.round + 1,
       });
     case gameActions.USER_HEAL:
       return Object.assign({}, state, {
-        userHealth: state.userHealth + action.value
+        userHealth: state.userHealth + action.value,
+        round: state.round + 1,
       });
     case gameActions.USER_EXIT:
       return state;

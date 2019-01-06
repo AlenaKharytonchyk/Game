@@ -30,9 +30,9 @@ function Header(props) {
       <AppBar position="static" color="inherit" className={classes.appbar}>
         <Toolbar>
           <Typography variant="h6" color="inherit" className={classes.grow}>
-            Game Name
+            Учёные против покемонов
           </Typography>
-          {inProgress ? (<span>{userName}</span>) : <Button color="inherit" onClick = {startGame}>Let's play!</Button>}
+          {inProgress ? (<span>{userName}</span>) : <Button color="inherit" onClick = {startGame}>Начнём игру!</Button>}
         </Toolbar>
       </AppBar>
     </div>

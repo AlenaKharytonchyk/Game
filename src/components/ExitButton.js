@@ -13,10 +13,10 @@ const styles = theme => ({
 });
 
 function ExitButton(props) {
-  const { classes } = props;
+  const { classes, onClick } = props;
   return (
 
-      <Fab aria-label="Attack" color='default' className={classes.fab}>
+      <Fab aria-label="Attack" color='default' className={classes.fab} onClick={onClick}>
         <Icon>directions_run</Icon>
       </Fab>
 

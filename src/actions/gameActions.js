@@ -23,8 +23,8 @@ export function gameStart(userHealth, monsterHealth) {
   return { type: GAME_START,
   userHealth, monsterHealth };
 }
-export function gameEnd() {
-  return { type: GAME_END };
+export function gameEnd(userName, score) {
+  return { type: GAME_END, userName, score };
 }
 export function monsterAppear(score, monsterHealth) {
   return { type: MONSTER_APPEAR, score, monsterHealth };
