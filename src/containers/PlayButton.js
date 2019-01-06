@@ -11,7 +11,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 };
 
 const PlayButtonContainer = connect(
-  ()=>{},
+  ()=>({}),
   mapDispatchToProps
 )(PlayButton);
 

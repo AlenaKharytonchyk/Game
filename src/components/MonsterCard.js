@@ -3,10 +3,8 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import red from "@material-ui/core/colors/red";
 import { connect } from "react-redux";
 import config from "../gameConfig/config";
 import { gameActions } from "../actions";
@@ -123,7 +121,7 @@ class MonsterCard extends React.Component {
         <img src={imgSrc} className={classes.media}/>
         {/* <CardMedia className={classes.media} image={monsterType.idle} title={monsterName} /> */}
         <CardContent>
-          <Typography component="p">
+          <Typography component="div">
             Health: {monsterHealth}{" "}
             <LinearProgress
               className={classes.healthBar}

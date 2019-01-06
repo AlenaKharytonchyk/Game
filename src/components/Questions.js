@@ -6,16 +6,15 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import mathQuestions from "../questions/math/mathQuestions";
 import spellingQuestions from "../questions/spelling/spellingQuestions";
 import translateQuestions from "../questions/translate/translateQuestions";
-import  TextField  from "@material-ui/core/TextField";
+import TextField from "@material-ui/core/TextField";
 import { Typography } from "@material-ui/core";
-import { withStyles } from '@material-ui/core/styles';
-
+import { withStyles } from "@material-ui/core/styles";
 
 export const QUESTION_TYPES = {
-  MATH: 'MATH',
-  SPELLING: 'SPELLING',
-  TRANSLATE: 'TRANSLATE',
-}
+  MATH: "MATH",
+  SPELLING: "SPELLING",
+  TRANSLATE: "TRANSLATE"
+};
 function getRandomQuestion(questions) {
   const i = getRndInteger(0, questions.length - 1);
   return questions[i];
@@ -32,48 +31,56 @@ class Question extends React.Component {
     super(props);
     this.state = { userAnswer: "" };
   }
+
   inputAnswer(value) {
     this.setState({ userAnswer: value });
   }
 
-  getQuestion() {
+  componentDidMount() {
     const { questionType } = this.props;
-    let { question } = this.state;
-    if (question) {
-      return question;
-    }
+    let question;
+
     switch (questionType) {
       case QUESTION_TYPES.MATH:
         question = getRandomQuestion(mathQuestions);
         break;
-        case QUESTION_TYPES.SPELLING:
+      case QUESTION_TYPES.SPELLING:
         question = getRandomQuestion(spellingQuestions);
         break;
-        case QUESTION_TYPES.TRANSLATE:
+      case QUESTION_TYPES.TRANSLATE:
         question = getRandomQuestion(translateQuestions);
         break;
-
       default:
         break;
     }
-    this.setState({ question });
-    return question;
+
+    this.setState({ questionObj: question });
   }
+
   render() {
-    const {question, formula, answer} = this.getQuestion();
-    const {onResponseSubmit, classes} = this.props;
-    const {userAnswer} = this.state;
+    const { onResponseSubmit, classes } = this.props;
+    const { userAnswer, questionObj } = this.state;
+
+    if(!questionObj)
+      return null;
+
+    const { question, formula, answer } = questionObj;
+
     return (
       <div>
         <DialogContent>
-          <DialogContentText>
-           <Typography className={classes.question}> {question}</Typography>
-          <Typography className={classes.formula}> {formula}</Typography>
-          </DialogContentText>
-          <TextField onChange={(event) => this.inputAnswer(event.target.value)} />
+          <Typography className={classes.question} component="p">
+            {question}
+          </Typography>
+          <Typography className={classes.formula} component="p">
+            {formula}
+          </Typography>
+          <TextField onChange={event => this.inputAnswer(event.target.value)} autoFocus />
         </DialogContent>
         <DialogActions>
-          <Button onClick = {()=>onResponseSubmit(compareAnswer(answer, userAnswer))}>Я знаю ответ!</Button>
+          <Button onClick={() => onResponseSubmit(compareAnswer(answer, userAnswer))}>
+            Я знаю ответ!
+          </Button>
         </DialogActions>
       </div>
     );
@@ -81,11 +88,12 @@ class Question extends React.Component {
 }
 const styles = theme => ({
   question: {
-   fontWeight: '700',
+    fontWeight: "700"
   },
   formula: {
-    fontWeight: '600',
-    fontStyle: 'italic',
-  },
+    fontWeight: "600",
+    fontStyle: "italic"
+  }
 });
+
 export default withStyles(styles)(Question);

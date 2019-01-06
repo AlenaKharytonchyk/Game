@@ -3,76 +3,103 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
-import red from "@material-ui/core/colors/red";
 import { connect } from "react-redux";
 import { gameActions } from "../actions";
 import { LinearProgress } from "@material-ui/core";
 import config from "../gameConfig/config";
-import lady from '../assets/Curie.gif';
+import ladyIdle from "../assets/CurieIdle.gif";
+import ladyAttack from "../assets/CurieAttack.gif";
+import manIdle from "../assets/EinsteinIdle.gif";
+import manAttack from "../assets/EinsteinAttack.gif";
+import { USER_ACTIONS } from "./GameScreen";
 
 const styles = theme => ({
   card: {
     maxWidth: 250,
     minWidth: 250,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center"
   },
   cardTitle: {
-    minHeight: '3.6em',
-    textAlign: 'center',
-    textOverflow: 'ellipsis',
-
+    minHeight: "3.6em",
+    textAlign: "center",
+    textOverflow: "ellipsis"
   },
   healthBar: {
     height: "1.5em",
-    width: '14em'
+    width: "14em"
   },
   media: {
-    height: '5em',
+    height: "5em"
   }
 });
 
 class UserCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { status: "idle" };
+    this.state = { status: USER_ACTIONS.IDLE };
   }
 
   componentDidUpdate(prevProps) {
-    const { userHealth, gameEnd, userName, score, monsterHealth } = this.props;
+    const {
+      userHealth,
+      gameEnd,
+      userName,
+      score,
+      userActionStatus,
+      userAttack,
+      userHeal
+    } = this.props;
     if (userHealth <= 0) {
-      gameEnd(userName, score);
+      return gameEnd(userName, score);
     }
-    if (monsterHealth < prevProps.monsterHealth) {
-      this.attackMonster();
-    }
-  }
-  attackMonster() {
-    // const { monsterAttack } = this.props;
-    setTimeout(() => {
-      // monsterAttack(config.gameDefaults.monsterAttack);
-      this.setState({ status: "idle" });
-    }, 2000);
 
-    this.setState({ status: "attack" });
+    if (
+      userActionStatus !== USER_ACTIONS.IDLE &&
+      prevProps.userActionStatus === USER_ACTIONS.IDLE
+    ) {
+      switch (userActionStatus) {
+        case USER_ACTIONS.ATTACK:
+          setTimeout(() => {
+            userAttack();
+          }, 2000);
+          break;
+        case USER_ACTIONS.HEAL:
+          userHeal();
+          break;
+        default:
+          break;
+      }
+    }
   }
+
+  getImgSrc() {
+    const { gender, userActionStatus } = this.props;
+    switch (gender) {
+      case "male":
+        return userActionStatus === USER_ACTIONS.ATTACK ? manAttack : manIdle;
+      case "female":
+        return userActionStatus === USER_ACTIONS.ATTACK ? ladyAttack : ladyIdle;
+      default:
+        return null;
+    }
+  }
+
   render() {
     const { classes, userName, userHealth } = this.props;
     const healthLine = Math.floor((userHealth / config.gameDefaults.userHealth) * 100);
 
     return (
       <Card className={classes.card}>
-        <CardHeader title={userName} className={classes.cardTitle}/>
-        <img src={lady} className={classes.media}/>
-
+        <CardHeader title={userName} className={classes.cardTitle} />
+        <img src={this.getImgSrc()} className={classes.media} />
         <CardContent>
-          <Typography component="p">
-            Health: {userHealth}{" "}
+          <Typography component="div">
+            Health: {userHealth}
             <LinearProgress
               className={classes.healthBar}
               variant="determinate"
@@ -90,27 +117,37 @@ UserCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const userName = state.userLoginReducer.userName;
-  const userHealth = state.gameReducer.userHealth;
-  const score = state.gameReducer.totalScore;
-  const monsterHealth = state.gameReducer.monsterHealth;
+const mapStateToProps = state => {
+  const {
+    totalScore: score,
+    userHealth,
+    userState: { userActionStatus, userActionResult }
+  } = state.gameReducer;
+  const { userName, gender } = state.userLoginReducer;
   return {
     userName,
     userHealth,
     score,
-    monsterHealth,
+    userActionStatus,
+    userActionResult,
+    gender
   };
 };
+
 const mapDispatchToProps = dispatch => {
+  const { userAttack, userHeal } = config.gameDefaults;
   return {
     gameEnd: (userName, score) => {
       dispatch(gameActions.gameEnd(userName, score));
-    }
+    },
+    userAttack: () => dispatch(gameActions.userAttack(userAttack)),
+    userHeal: () => dispatch(gameActions.userHeal(userHeal))
   };
 };
+
 const UserCardContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(UserCard);
+
 export default withStyles(styles)(UserCardContainer);

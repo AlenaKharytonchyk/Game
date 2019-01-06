@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
 import Landing from "./Landing";
 import { connect } from "react-redux";
 import GameScreen from "./GameScreen";
@@ -30,5 +29,5 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 export default connect(
-  mapStateToProps,
+  mapStateToProps
 )(App);

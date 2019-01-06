@@ -3,7 +3,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Slide from "@material-ui/core/Slide";
 import {connect} from 'react-redux';
-import { DialogContent } from "@material-ui/core";
+import DialogContent from "@material-ui/core/DialogContent";
 import ScoreBoard from "./ScoreBoard";
 
 function Transition(props) {
@@ -54,7 +54,7 @@ const mapStateToProps = (state) => {
 };
 
 const ScoreBoardDialogContainer = connect(
-  mapStateToProps,
+  mapStateToProps
 )(ScoreBoardDialog);
 
 export default ScoreBoardDialogContainer;

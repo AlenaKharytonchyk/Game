@@ -6,7 +6,6 @@ import Icon from '@material-ui/core/Icon';
 
 const styles = theme => ({
   button: {
-    // margin: theme.spacing.unit,
     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
     border: 0,
     borderRadius: 3,
@@ -24,17 +23,16 @@ const styles = theme => ({
 function PlayButton(props) {
   const { classes, startGame } = props;
   return (
-
       <Button variant="contained" className={classes.button} onClick={startGame}>
         Let's play!
         <Icon className={classes.rightIcon}>play_arrow</Icon>
       </Button>
-
   );
 }
 
 PlayButton.propTypes = {
   classes: PropTypes.object.isRequired,
+  startGame: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(PlayButton);

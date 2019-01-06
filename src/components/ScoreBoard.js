@@ -67,7 +67,7 @@ const mapStateToProps = (state) => {
 };
 
 const ScoreBoardContainer = connect(
-  mapStateToProps,
+  mapStateToProps
 )(ScoreBoard);
 
 export default withStyles(styles)(ScoreBoardContainer);

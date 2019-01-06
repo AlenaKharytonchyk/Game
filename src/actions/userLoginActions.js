@@ -10,6 +10,6 @@ export function cancelDialog() {
   return { type: CANCEL_DIALOG };
 }
 
-export function submitDialog(userName) {
-  return { type: SUBMIT_DIALOG, value: userName };
+export function submitDialog(userName, gender) {
+  return { type: SUBMIT_DIALOG, userName, gender };
 }

@@ -12,7 +12,7 @@ function userLoginReducer(state = initialState, action) {
     case loginActions.CANCEL_DIALOG:
       return initialState;
     case loginActions.SUBMIT_DIALOG:
-      return Object.assign({}, state, {showUserDialog: false, userName: action.value});
+      return Object.assign({}, state, {showUserDialog: false, userName: action.userName, gender: action.gender});
     case gameActions.GAME_END:
       return initialState;
     default:

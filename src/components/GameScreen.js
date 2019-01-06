@@ -16,6 +16,7 @@ import MonsterCard from "./MonsterCard";
 export const USER_ACTIONS = {
   ATTACK: 'ATTACK',
   HEAL: 'HEAL',
+  IDLE: 'IDLE'
 }
 const styles = theme => ({
   root: {
@@ -43,38 +44,25 @@ class GameScreen extends React.Component {
     }
   }
 
-  handleOpenDialog(dialogType) {
-    this.setState({displayMagicDialog: true, dialogType})
+  handleOpenDialog(userActionType) {
+    this.setState({displayMagicDialog: true, userActionType})
   }
 
-  handleCloseDialog(isCorrect, dialogType) {
+  handleCloseDialog(isCorrect, userActionType) {
+    const {updateUserState} =this.props;
+    updateUserState({userActionStatus: userActionType, userActionResult: isCorrect});
+
     this.setState({displayMagicDialog: false});
-    this.makeAMove(isCorrect, dialogType);
   }
-  makeAMove(isCorrect, dialogType){
-    const {userHeal, userAttack} =this.props;
 
-    switch (dialogType) {
-      case USER_ACTIONS.ATTACK:
-        const damage = isCorrect? config.gameDefaults.userAttack: 0;
-        userAttack(damage);
-        break;
-      case USER_ACTIONS.HEAL:
-        const healthIncrease = isCorrect? config.gameDefaults.userHeal: 0;
-        userHeal(healthIncrease);
-        break;
-      default:
-        break;
-    }
-  }
   componentDidMount(){
     const {startGame} = this.props;
     startGame(config.gameDefaults.userHealth, config.gameDefaults.monsterHealth)
-
   }
+
   render() {
     const { classes, userName, score, gameEnd } = this.props;
-    const { displayMagicDialog, dialogType } = this.state;
+    const { displayMagicDialog, userActionType } = this.state;
     return (
       <div>
         <Paper className={classes.root} elevation={1}>
@@ -88,7 +76,7 @@ class GameScreen extends React.Component {
             <ExitButton onClick={()=>gameEnd(userName, score)}/>
           </div>
         </Paper>
-        <MagicDialog open = {displayMagicDialog} handleClose={(isCorrect,dialogType) => this.handleCloseDialog(isCorrect,dialogType)} dialogType={dialogType}/>
+        <MagicDialog open = {displayMagicDialog} handleClose={(isCorrect,userActionType) => this.handleCloseDialog(isCorrect,userActionType)} userActionType={userActionType}/>
       </div>
     );
   }
@@ -97,23 +85,16 @@ class GameScreen extends React.Component {
 const mapStateToProps = (state) => {
   const userName =
     state.userLoginReducer.userName;
-  const score = state.gameReducer.score;
+  const score = state.gameReducer.totalScore;
   return {
     userName,
     score
   };
-
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    userAttack: (e) => {
-
-      dispatch(gameActions.userAttack(e));
-    },
-    userHeal: (e) => {
-      dispatch(gameActions.userHeal(e));
-    },
+    updateUserState: e => dispatch(gameActions.updateUserState(e)),
     startGame: (userHealth, monsterHealth) => {
       dispatch(gameActions.gameStart(userHealth, monsterHealth));
     },
@@ -130,9 +111,8 @@ const GameScreenContainer = connect(
 
 GameScreen.propTypes = {
   classes: PropTypes.object.isRequired,
-  userAttack: PropTypes.func.isRequired,
-  userHeal: PropTypes.func.isRequired,
   startGame: PropTypes.func.isRequired,
+  updateUserState: PropTypes.func.isRequired,
 };
 
 export default withStyles(styles)(GameScreenContainer);
