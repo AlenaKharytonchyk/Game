@@ -37,6 +37,8 @@ const styles = theme => ({
   versus: {
     fontSize: '3em',
     color: '#f50057',
+    fontFamily: "'Press Start 2P', cursive",
+    textShadow: '5px 5px 0 rgb(102, 102, 102)',
   }
 });
 

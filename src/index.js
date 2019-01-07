@@ -12,8 +12,7 @@ import ScoreBoardDialogContainer from "./components/ScoreBoardDialog";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
-
-// const store = createStore(gameReducers);
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 const persistConfig = {
   key: "root",
@@ -27,6 +26,7 @@ let persistor = persistStore(store);
 
 ReactDOM.render(
   <Provider store={store}>
+    <CssBaseline />
     <PersistGate loading={null} persistor={persistor}>
       <HeaderContainer/>
       <App />

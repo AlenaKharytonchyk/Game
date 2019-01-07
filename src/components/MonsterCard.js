@@ -15,34 +15,47 @@ const styles = theme => ({
   card: {
     maxWidth: 250,
     minWidth: 250,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: "center",
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3
   },
   cardTitle: {
-    minHeight: "3.6em",
+    minHeight: "4em",
+    maxHeight: "4em",
     textAlign: "center",
     textOverflow: "ellipsis"
   },
   healthBar: {
     height: "1.5em",
-    width: '14em'
+    width: "14em"
   },
   media: {
-    height: '5em',
+    height: "5em"
   },
   monsterIdle: {
-    height: '200%',
+    height: "200%"
   },
   monsterAttack: {
-    objectFeat: 'cover',
-    objectPosition: '0 -10%',
-    height: '200%'
+    objectFeat: "cover",
+    objectPosition: "0 -10%",
+    height: "200%"
+  },
+  healthText: {
+    textAlign: "center",
+    fontFamily: '"Press Start 2P", cursive',
+    color: "#f50057"
+  },
+  bitText: {
+    textAlign: "center",
+    fontFamily: '"Press Start 2P", cursive',
+    fontSize: '1.2rem',
+    lineHeight: '1.2em',
   }
 });
+
 function getRandomMonsterName(arr) {
   const i = getRndInteger(0, arr.length - 1);
   return arr[i];
@@ -119,12 +132,14 @@ class MonsterCard extends React.Component {
     }
     return (
       <Card className={classes.card}>
-        <CardHeader title={monsterName} className={classes.cardTitle} />
-        <img src={imgSrc} className={classes.media}/>
-        {/* <CardMedia className={classes.media} image={monsterType.idle} title={monsterName} /> */}
+        <CardHeader
+          title={<p className={classes.bitText}>{monsterName}</p>}
+          className={classes.cardTitle}
+        />
+        <img src={imgSrc} className={classes.media} />
         <CardContent>
-          <Typography component="div">
-            Health: {monsterHealth}{" "}
+          <Typography component="div" className={classes.healthText}>
+            Health: {monsterHealth}
             <LinearProgress
               className={classes.healthBar}
               variant="determinate"

@@ -27,7 +27,8 @@ const styles = theme => ({
     marginRight: theme.spacing.unit * 3
   },
   cardTitle: {
-    minHeight: "3.6em",
+    minHeight: "4em",
+    maxHeight: "4em",
     textAlign: "center",
     textOverflow: "ellipsis"
   },
@@ -37,6 +38,15 @@ const styles = theme => ({
   },
   media: {
     height: "5em"
+  },
+  healthText: {
+    textAlign: "center",
+    fontFamily: '"Press Start 2P", cursive',
+    color: "#f50057"
+  },
+  bitText: {
+    textAlign: "center",
+    fontFamily: '"Press Start 2P", cursive'
   }
 });
 
@@ -97,10 +107,13 @@ class UserCard extends React.Component {
 
     return (
       <Card className={classes.card}>
-        <CardHeader title={userName} className={classes.cardTitle} />
+        <CardHeader
+          title={<p className={classes.bitText}>{userName}</p>}
+          className={classes.cardTitle}
+        />
         <img src={this.getImgSrc()} className={classes.media} />
         <CardContent>
-          <Typography component="div">
+          <Typography component="div" className={classes.healthText}>
             Health: {userHealth}
             <LinearProgress
               className={classes.healthBar}
