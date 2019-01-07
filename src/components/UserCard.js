@@ -63,6 +63,7 @@ class UserCard extends React.Component {
       userName,
       score,
       userActionStatus,
+      userActionResult,
       userAttack,
       userHeal
     } = this.props;
@@ -74,14 +75,16 @@ class UserCard extends React.Component {
       userActionStatus !== USER_ACTIONS.IDLE &&
       prevProps.userActionStatus === USER_ACTIONS.IDLE
     ) {
+      const { userAttack: damage, userHeal: heal } = config.gameDefaults;
+
       switch (userActionStatus) {
         case USER_ACTIONS.ATTACK:
           setTimeout(() => {
-            userAttack();
-          }, 2000);
+            userAttack(userActionResult ? damage : 0);
+          }, userActionResult ? 2000 : 0);
           break;
         case USER_ACTIONS.HEAL:
-          userHeal();
+          userHeal(userActionResult ? heal : 0);
           break;
         default:
           break;
@@ -150,13 +153,12 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  const { userAttack, userHeal } = config.gameDefaults;
   return {
     gameEnd: (userName, score) => {
       dispatch(gameActions.gameEnd(userName, score));
     },
-    userAttack: () => dispatch(gameActions.userAttack(userAttack)),
-    userHeal: () => dispatch(gameActions.userHeal(userHeal))
+    userAttack: (damage) => dispatch(gameActions.userAttack(damage)),
+    userHeal: (heal) => dispatch(gameActions.userHeal(heal))
   };
 };
 

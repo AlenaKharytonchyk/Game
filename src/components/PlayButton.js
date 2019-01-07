@@ -14,6 +14,8 @@ const styles = theme => ({
     height: 48,
     padding: '0 30px',
     margin: '0 auto',
+    position: 'relative',
+    top: '-50%',
   },
   rightIcon: {
     marginLeft: theme.spacing.unit,
@@ -24,7 +26,7 @@ function PlayButton(props) {
   const { classes, startGame } = props;
   return (
       <Button variant="contained" className={classes.button} onClick={startGame}>
-        Let's play!
+        Начнём игру!
         <Icon className={classes.rightIcon}>play_arrow</Icon>
       </Button>
   );

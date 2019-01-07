@@ -29,7 +29,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(jpg|png|gif|svg|ttf)$/,
+        test: /\.(jpg|png|gif|svg)$/,
         use: [
           {
             loader: "file-loader",
@@ -50,7 +50,7 @@ module.exports = {
         }
       },
       {
-        test: /\.less$/,
+        test: /\.(less|css)$/,
         use: ExtractTextPlugin.extract({
           use: ["css-loader", "less-loader", "postcss-loader"],
           fallback: "style-loader"
