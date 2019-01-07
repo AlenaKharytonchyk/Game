@@ -21,8 +21,7 @@ export const USER_ACTIONS = {
 const styles = theme => ({
   root: {
     ...theme.mixins.gutters(),
-    paddingTop: theme.spacing.unit * 2,
-    paddingBottom: theme.spacing.unit * 2,
+    padding: theme.spacing.unit * 2,
     margin: "10px 0"
   },
   actionContainer: {
@@ -32,7 +31,8 @@ const styles = theme => ({
   cardContainer: {
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    flexWrap: 'wrap',
   },
   versus: {
     fontSize: '3em',
