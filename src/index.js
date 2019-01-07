@@ -13,6 +13,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from "redux-persist/integration/react";
 import CssBaseline from '@material-ui/core/CssBaseline';
+import './assets/favicon.ico'
 
 const persistConfig = {
   key: "root",

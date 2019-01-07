@@ -111,10 +111,10 @@ class Landing extends React.Component {
           <TabContainer className={classes.screenShotTab}>
             <div className={classes.flexTab}>
               <Typography component="p" className={classes.galleryText}>
-                Вы сможете окунуться в замечательный мир приключение став одинм из известнейших
+                Вы сможете окунуться в замечательный мир приключение став одним из известнейших
                 учёных. Вы сможете сразиться с ужаснейшими созданиямия, которые перевенут картину
-                вашего мира с ног на голову. Если ты смелый ловкий умелый, то "Учёные против
-                Покемонов" ждут тебя о герой!
+                вашего мира с ног на голову. Если ты смелый ловкий и умелый, то "Учёные против
+                Покемонов" ждут тебя, о герой!
               </Typography>
               <div className={classes.galleryContainer}>
                 <ImageGallery items={screenShots} />
